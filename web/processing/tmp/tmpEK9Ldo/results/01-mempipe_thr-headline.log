@@ -1,0 +1,12 @@
+mempipe_thr 0 0 0 64 2 1 1 1 1000000 949 Mbps
+mempipe_thr 0 1 0 64 2 1 1 1 1000000 3963 Mbps
+mempipe_thr 0 0 0 4096 2 1 1 1 1000000 5666 Mbps
+mempipe_thr 0 1 0 4096 2 1 1 1 1000000 23395 Mbps
+mempipe_thr 0 0 0 65536 2 1 1 1 100000 19135 Mbps
+mempipe_thr 0 1 0 65536 2 1 1 1 100000 21492 Mbps
+mempipe_thr 0 0 0 64 2 1 0 1 1000000 639 Mbps
+mempipe_thr 0 1 0 64 2 1 0 1 1000000 2608 Mbps
+mempipe_thr 0 0 0 4096 2 1 0 1 1000000 4842 Mbps
+mempipe_thr 0 1 0 4096 2 1 0 1 1000000 16711 Mbps
+mempipe_thr 0 0 0 65536 2 1 0 1 100000 13471 Mbps
+mempipe_thr 0 1 0 65536 2 1 0 1 100000 10947 Mbps

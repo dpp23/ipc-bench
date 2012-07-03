@@ -1,0 +1,7 @@
+[    0.000000] DMI: Parallels Software International Inc. Parallels Virtual Platform/Parallels Virtual Platform, BIOS 7.0.15054.722853 10/26/2007
+[    0.000000] Booting paravirtualized kernel on KVM
+[    1.236415] usb 1-1: Product: Virtual USB Video Camera
+[    1.417976] ata2.00: ATAPI: Virtual DVD-ROM [1], FWR10003, max UDMA/25
+[    1.418365] scsi 1:0:0:0: CD-ROM                     Virtual DVD-ROM  R103 PQ: 0 ANSI: 5
+[    4.740015] systemd-readahead-collect[293]: Disabling readahead collector due to execution in virtualized environment.
+[    5.863308] uvcvideo: Found UVC 1.00 device Virtual USB Video Camera (203a:fff9)

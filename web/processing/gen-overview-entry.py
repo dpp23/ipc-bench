@@ -60,8 +60,8 @@ for line in open(data_dir + "/logs/uname").readlines():
   os_string = "%s %s, %s" % (os, ver, arch)
 
 # Generate HTML output
-html = "<tr><td>%s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td>" \
-    "<td>%s</td><td>%s</td></tr>"
+html = "<tr><td>%s</td><td>%s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td>" \
+    "<td>%s</td><td>%s</td></tr> "
 
 thr_graphs_links = ""
 for c in target_cpus.split(","):
@@ -76,7 +76,9 @@ details_link = "<a href=\"details/%s.html\">View</a>" % name
 raw_data_link = "<a href=\"https://raw.github.com/%s/ipc-bench/master/" \
     "results/%s.tar.gz\">Download</a>" % (github_user, name)
 
-out_html = html % (model_names[0], num_cores, numa_string, os_string,
+checkBox = "<form><input type=\"checkbox\" class=\"chkBox\" name=\"%s\" value=\"%s\" /></form>" %(name, name)
+
+out_html = html % (checkBox, model_names[0], num_cores, numa_string, os_string,
                    virtualized_string, details_link, raw_data_link)
 
 out_fd = open(outfile, "a")

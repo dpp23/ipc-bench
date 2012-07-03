@@ -36,5 +36,35 @@
 
 <div id="container"> <a id="skip-content" name="skip-content"></a>
 <ul id="nav-breadcrumb"><li class="first"><a href="/research/srg/netos/">Systems Research Group - NetOS</a></li><li><a href="/research/srg/netos/ipc-bench/">ipc-bench</a></li></ul><div id="content"><div id="content-primary">
-
-
+<script src="http://mbostock.github.com/d3/d3.v2.min.js"></script>
+<script>
+	var names=[];
+	var checkBoxes=document.getElementsByClassName("chkBox");
+	function compare()
+	{
+		names=[];
+		var i;
+		for(i=0; i< checkBoxes.length; i++)
+		{
+			if(checkBoxes[i].checked) names.push(checkBoxes[i].name);
+		}
+		sendData();
+		
+	}
+	function sendData()
+	{
+  		// Initialize packed or we get the word 'undefined'
+  		var packed = "";
+  		for (i = 0; (i < names.length); i++)
+		{
+    			if (i > 0) {
+      			packed += ",";
+    			}
+    			packed += escape(names[i]);
+  		}
+  		window.location = "./details/compare.html?" + packed;
+		
+	}
+	
+	
+</script>

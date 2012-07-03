@@ -1,0 +1,1 @@
+{"name": " Intel(R) Core(TM)2 Duo CPU     T9400  @ 2.53GHz", "mem": "3.86 GB", "virtualized": "no", "dat": [{"y": 0, "x": 0, "v": 40}, {"y": 1, "x": 0, "v": 349}, {"y": 0, "x": 1, "v": 200}, {"y": 1, "x": 1, "v": 60}], "numa": "no", "cores": "2", "os": "Linux 3.3.7-1.fc16.x86_64 x86_64"}

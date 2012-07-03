@@ -1,0 +1,6 @@
+tcp_nodelay_thr 0 0 -1 64 2 1 1 1 1000000 316 Mbps
+tcp_nodelay_thr 0 1 -1 64 2 1 1 1 1000000 530 Mbps
+tcp_nodelay_thr 0 0 -1 4096 2 1 1 1 1000000 3104 Mbps
+tcp_nodelay_thr 0 1 -1 4096 2 1 1 1 1000000 3266 Mbps
+tcp_nodelay_thr 0 0 -1 65536 2 1 1 1 100000 4130 Mbps
+tcp_nodelay_thr 0 1 -1 65536 2 1 1 1 100000 5056 Mbps

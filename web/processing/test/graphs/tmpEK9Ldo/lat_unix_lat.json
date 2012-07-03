@@ -1,0 +1,1 @@
+{"name": " Intel(R) Core(TM)2 Duo CPU     P8800  @ 2.66GHz", "mem": "1.96 GB", "virtualized": "unknown", "dat": [{"y": 0, "x": 0, "v": 180}, {"y": 1, "x": 0, "v": 600}, {"y": 0, "x": 1, "v": 660}, {"y": 1, "x": 1, "v": 210}], "numa": "no", "cores": "2", "os": "Linux 3.2.4-6-desktop x86_64"}

@@ -1,0 +1,3 @@
+[    0.000000] Booting paravirtualized kernel on bare hardware
+[   11.204364] input: Sony Vaio Jogdial as /devices/virtual/input/input9
+[   50.448853] input: ACPI Virtual Keyboard Device as /devices/virtual/input/input13

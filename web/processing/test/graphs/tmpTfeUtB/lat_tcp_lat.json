@@ -1,0 +1,1 @@
+{"name": " AMD Opteron(tm) Processor 248", "mem": "15.64 GB", "virtualized": "no", "dat": [{"y": 0, "x": 0, "v": 260}, {"y": 1, "x": 0, "v": 349}, {"y": 0, "x": 1, "v": 360}, {"y": 1, "x": 1, "v": 270}], "numa": "yes 2 nodes", "cores": "2", "os": "Linux 3.0.0-12-server x86_64"}

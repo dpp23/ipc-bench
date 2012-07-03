@@ -1,0 +1,12 @@
+shmem_pipe_thr 0 0 0 64 2 1 1 1 1000000 236 Mbps
+shmem_pipe_thr 0 1 0 64 2 1 1 1 1000000 435 Mbps
+shmem_pipe_thr 0 0 0 4096 2 1 1 1 1000000 8620 Mbps
+shmem_pipe_thr 0 1 0 4096 2 1 1 1 1000000 12179 Mbps
+shmem_pipe_thr 0 0 0 65536 2 1 1 1 100000 10157 Mbps
+shmem_pipe_thr 0 1 0 65536 2 1 1 1 100000 12321 Mbps
+shmem_pipe_thr 0 0 0 64 2 1 0 1 1000000 200 Mbps
+shmem_pipe_thr 0 1 0 64 2 1 0 1 1000000 441 Mbps
+shmem_pipe_thr 0 0 0 4096 2 1 0 1 1000000 6274 Mbps
+shmem_pipe_thr 0 1 0 4096 2 1 0 1 1000000 8481 Mbps
+shmem_pipe_thr 0 0 0 65536 2 1 0 1 100000 7303 Mbps
+shmem_pipe_thr 0 1 0 65536 2 1 0 1 100000 8478 Mbps

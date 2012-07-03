@@ -12,6 +12,8 @@ outfile = out_dir + "/" + name + ".html"
 
 github_user = "ms705"
 
+
+
 print "Generating details page for %s" % name
 #print "Target CPUs are: %s" % target_cpus.split(",")
 
@@ -32,7 +34,7 @@ numa_string = "unknown"
 try:
   l = os.listdir(data_dir + "/logs/sys-node")
   if len(l) > 1:
-    numa_string = "yes, %d nodes" % len(l)
+    numa_string = "yes %d nodes" % len(l)
   else:
     numa_string = "no"
 except:
@@ -65,7 +67,7 @@ for line in open(data_dir + "/logs/uname").readlines():
   os_id = fields[0]
   ver = fields[1]
   arch = fields[2]
-  os_string = "%s %s, %s" % (os_id, ver, arch)
+  os_string = "%s %s %s" % (os_id, ver, arch)
 
 # Generate latency graphs
 lat_ls = None
@@ -77,6 +79,9 @@ try:
     argv = ["python", "plot_lat.py", results_dir + "/lat/" + lat_file, \
             lat_file, data_dir + "/graphs", str(len(processor_ids))]
     subprocess.check_call(argv)
+    argv = ["python", "json_lat.py", results_dir + "/lat/" + lat_file, \
+            lat_file, data_dir + "/graphs", str(len(processor_ids)), ((str(len(processor_ids)) + ", " + model_names[0])) +"," + numa_string +","+ mem_string + "," + os_string + "," +virtualized_string ]
+    subprocess.check_call(argv)
 except:
   pass
 
@@ -84,11 +89,16 @@ except:
 argv = ["python", "plot_thr.py", results_dir, target_cpus, "0"]
 subprocess.check_call(argv)
 
+# argv = ["python", "json_thr.py", results_dir, target_cpus, "0"]
+# subprocess.check_call(argv)
+
 out_html = "<p style=\"background-color: lightgray;\"><b>" \
     "<a href=\"../results.html\">&laquo; Back to overview</a></b></p>"
 
 # Generate hardware overview section
 html = "<h2>Hardware overview</h2>"
+
+
 
 hw_string = "<table>"
 row_string = "<tr><td>%s</td><td>%s</td></tr>"
