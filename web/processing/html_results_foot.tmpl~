@@ -1,8 +1,0 @@
-
- </tbody>
-<br>
-<input type="button" class="cmp" value="Compare" style="position: relative; left: 10%;" onClick=compare() />
-<br><br>
-</table>
-
-
