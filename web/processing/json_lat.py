@@ -46,7 +46,7 @@ def get_data(filename):
       v_tmp.append(data[i][j])
 
   for i in range(0, len(x_tmp)):
-	retdata.append(Lat_data(x_tmp[i], y_tmp[i], int (v_tmp[i] * 10000000)))
+	retdata.append(Lat_data(x_tmp[i], y_tmp[i], v_tmp[i] ))
 
   return retdata
 

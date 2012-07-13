@@ -1,0 +1,1 @@
+{"nodes": [{"cores": ["0"], "distances": ["10", "20"]}, {"cores": ["1"], "distances": ["20", "10"]}], "name": "AMD Opteron(tm) Processor 248", "caches": [{"size": "64K", "cpu_list": ["0"], "level": "1"}, {"size": "64K", "cpu_list": ["0"], "level": "1"}, {"size": "1024K", "cpu_list": ["0"], "level": "2"}]}

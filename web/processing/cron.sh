@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp ./compare.html ${OUT_DIR}/details
+
 
 CUR_DIR=$(pwd)
 
@@ -8,7 +8,7 @@ RESULTS_DIR=../../results
 OUT_DIR=test
 HTML_OUTFILE=results.html
 
-
+cp ./compare.html ${OUT_DIR}/details
 
 cd ${RESULTS_DIR}
 RESULTS=$(ls tmp*.tar.gz)
@@ -51,9 +51,9 @@ for r in ${RESULTS}; do
   chmod -R o+rx ${OUT_DIR}/graphs/${NAME}
 
   #Create file with the throughput file names
-  cd ${OUT_DIR}/graphs/${NAME}
-  find .  -not -name "*small*" -name "core*" -exec basename {} \;   >> g_cores.txt
-  cd ../../..
+  #cd ${OUT_DIR}/graphs/${NAME}
+  #find .  -not -name "*small*" -name "core*" -exec basename {} \;   >> g_cores.txt
+  #cd ../../..
 
 done
 cat ${PWD}/html_results_foot.tmpl >> ${OUT_DIR}/${HTML_OUTFILE}.new

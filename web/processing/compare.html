@@ -4,20 +4,35 @@
 <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /><meta content="text/css" http-equiv="Content-Style-Type" /><title>Computer Laboratory: ipc-bench</title><link href="http://www.cl.cam.ac.uk/style/layout.css" media="all" rel="stylesheet" type="text/css" /><link href="http://www.cl.cam.ac.uk/style/print.css" media="print" rel="stylesheet" type="text/css" /><link href="http://www.cl.cam.ac.uk/style/blue.css" media="all" rel="stylesheet" type="text/css" /><!--[if IE 6]><link rel="stylesheet" href="http://www.cl.cam.ac.uk/style/ie6.css" type="text/css" media="screen" /><script type="text/javascript" src="http://www.cam.ac.uk/global/js/minmax.js"></script><![endif]--><!--[if IE 7]><link rel="stylesheet" href="http://www.cl.cam.ac.uk/style/ie7.css" type="text/css" media="screen" /><![endif]--><link href="." rel="Up" />
 <script type="text/javascript" src="tablesorter/jquery-latest.js"></script>
 <script type="text/javascript" src="tablesorter/jquery.tablesorter.js"></script>
+<script language="Javascript">
+function do_totals1()
+ {
+	d3.select("body").style("visibility", "hidden");
+ document.getElementById("pleasewaitScreen").style.Top = (document.body.scrollTop + 50)
+ document.getElementById("pleasewaitScreen").style.visibility="visible";
+ window.setTimeout('do_totals2()',1)
+ }
+ 
+function do_totals2()
+ {
+ calc_totals();
+ 
+ d3.select("body").style("visibility", "visible");
+ document.getElementById("pleasewaitScreen").style.visibility="hidden";
+ 
+ } 
+</script>
+
 <link rel="stylesheet" href="tablesorter/themes/blue/style.css" type="text/css" media="screen" />
 <style>
- #results-table, #results-table td, #results-table th {
-  position: relative;
-  margin: auto;
-  border: 1px solid gray;
-  border-collapse: collapse;
-  text-align: center;
- }
 table
 {
     border-color: #600;
     border-width: 0 0 1px 1px;
     border-style: solid;
+    white-space: nowrap;
+   
+
 }
 
 td
@@ -30,6 +45,7 @@ td
     background-color: #FFC;
 }
 
+
     #doublescroll { overflow: auto; overflow-y: hidden; }
     #doublescroll p { margin: 0; padding: 1em; white-space: nowrap; }
     #doublescroll2 { overflow: auto; overflow-y: hidden; }
@@ -37,9 +53,40 @@ td
     #doublescroll3 { overflow: auto; overflow-y: hidden; }
     #doublescroll3 p { margin: 0; padding: 1em; white-space: nowrap; }
 
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+.axisX path,
+.axisX line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+.axisY path,
+.axisY line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+.lab{
+	top:100px
+	}
 </style>
 </head>
 <body class="one-col dept">
+<DIV ID="pleasewaitScreen" STYLE="position:absolute;z-index:5;top:30%;left:40%;visibility:hidden;">
+
+            <IMG src="http://logd.tw.rpi.edu/files/loading.gif"/> 
+		<a> Please wait... </a>  
+
+</DIV>
 <div id="skip"> <a accesskey="2" href="#skip-content">Skip to content</a>&#160;|&#160;<a accesskey="0" href="http://www.cam.ac.uk/site/accesskeys.html">Access key help</a> </div><div id="header">  <div id="branding"><a accesskey="1" href="http://www.cam.ac.uk/"><img alt="University of Cambridge" class="ucam" src="http://www.cl.cam.ac.uk/images/identifier.gif" /></a>
   </div>
 
@@ -64,11 +111,12 @@ td
 <p style="background-color: lightgray;"><b><a href="../results.html">&laquo; Back to overview</a></b></p><h2>Hardware overview</h2>
 
 
-<div id="doublescroll3">
+<div id="doublescroll">
     <table>
 		<tbody class="hardware" border.border-right-width-value="2px" CELLPADDING=3 CELLSPACING=1 
     				RULES=cols FRAME=vsides>
 			<tr class="name"><td>Name:</td></tr><tr class="cores"><td>Cores (threads):</td></tr><tr class="numa"><td>NUMA:</td></tr><tr class=mem><td>Total memory:</td></tr><tr class="os"><td >Operating system:</td></tr><tr class="virt"><td>Virtualized:</td></tr>
+		<tr class="numatop"><td><p>Distances between NUMA nodes:</p></td></tr><tr class="topology"><td><p class="lab">Topology of a single NUMA node:</p></td></tr>
 		</tbody>
 	</table>
 </div>
@@ -77,26 +125,92 @@ td
 <h2>Latency</h2>
 <p>These graphs show the pairwise IPC latency between cores.
 
-<div id="doublescroll">
+<div id="doublescroll2">
     <table>
 		<tbody class="latency">
 		</tbody>
 	</table>
 </div>
 
-<h2>Throughput</h2><p>These graphs show the IPC throughput for continous communication between a pair of cores. The y-axis shows throughput in Gbps, and the x-axis different chunk sizes.<br /><b>Click on the graphs to show a larger version.</b></p><p><img src="../images/thr_legend.png" class="aleft" style="border: none;" /></p>
+<h2>Throughput</h2><p>These graphs show the IPC throughput for continous communication between a pair of cores. The y-axis shows throughput in Gbps, and the x-axis different chunk sizes.<br /><b>Legend:</b></p><p><img src="../images/thr_legend.png" class="aleft" style="border: none;" /></p>
+<svg id="legend"> </svg>
 
-<div id="doublescroll2">
+<div id="doublescroll3">
     <table>
 		<tbody class="throughput">
 		</tbody>
 	</table>
 </div>
 
-<script src="http://mbostock.github.com/d3/d3.v2.min.js"></script>
+<script src="http://mbostock.github.com/d3/d3.v2.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script>
+	function RainBowColor(length, maxLength)
+	{
+    		var i = (length * 180/ maxLength);
+    		var r = Math.round(Math.sin(0.024 * i + 0) * 127 + 128);
+    		var g = Math.round(Math.sin(0.024 * i + 2) * 127 + 128);
+    		var b = Math.round(Math.sin(0.024 * i + 4) * 127 + 128);
+    		return 'rgb(' + r + ',' + g + ',' + b + ')';
+	}
 
+	function linkCreate(d , i)
+	{
+		return "../graphs/" + d + "/" + i;
+	}
+	
+
+	function biglinkCreate(d , i)
+	{
+		var re = ".png";
+		var s=i;		
+		
+		return "../graphs/" + d + "/" + s.replace(re, "-small.png");
+	}
+	
+	function cross(a)
+	{
+  		return function(d) {
+    				var c = [];
+    			for (var i = 0, n = a.length; i < n; i++) c.push({x: d, y: a[i]});
+    				return c;
+  			};
+	}
+
+	function get_th_filename(a, i)
+	{
+		switch(i)
+		{
+			case 0: return "core_0_to_0.json";
+			case 1: return "core_0_to_" + a.ht_part + ".json";
+			case 2: return "core_0_to_" + a.sameSock + ".json";
+			case 3: return "core_0_to_" + a.diffSock + ".json";
+			case 4: return "core_0_to_" + a.sameNUMA + ".json";
+			case 5: return "core_0_to_" + a.diffNUMA + ".json";
+		}
+	}
+	function get_th_data(a, i)
+	{
+		if(a.pipe[0] == -1.) return [-1.,-1.,-1.];
+		switch(i)
+		{
+			case 0: return a.mempipe_spin_unsafe;
+			case 1: return a.mempipe_spin_safe;
+			case 2: return a.mempipe_futex_unsafe;
+			case 3: return a.mempipe_futex_safe;
+			case 4: return a.shmpipe_unsafe;
+			case 5: return a.shmpipe_safe;		
+			case 6: return a.vmsplice;
+			case 7: return a.pipe;					
+			case 8: return a.unix;							
+			case 9: return a.tcp_nd;
+			case 10: return a.tcp;
+		}							
+	}									
+										
+
+
+function calc_totals(){
 	//get cpu ids in var data
 	var query = window.location.search;
  
@@ -108,8 +222,7 @@ td
     			data[i] = unescape(data[i]);
   	}
 
-
-
+	var test_names = ["TCP nodelay", "TCP", "PIPE" , "Memory PIPE" , "UNIX"];
 	var json_files=["lat_tcp_nodelay_lat.json", "lat_tcp_lat.json", "lat_pipe_lat.json", "lat_mempipe_lat.json",
 			"lat_unix_lat.json" ];
 	var images=["lat_tcp_nodelay_lat.csv.png", "lat_tcp_lat.csv.png", "lat_pipe_lat.csv.png", "lat_mempipe_lat.csv.png",
@@ -117,23 +230,39 @@ td
 
 
 	//load hardware data from json-----
-	var hardware=[];
+	var latency=[];
 	
-	for(var i=0;i<data.length;i++)
+	for(var i=0;i<json_files.length;i++)
 	{
-		$.ajax({
-        		url: linkCreate(data[i], json_files[0]),
-        		async: false,
-        		dataType: 'json',
-        		success: function(data) {
-                			hardware.push(data);
-        				}
-    		});
+		latency.push([]);
+		for(var j=0; j<data.length; j++)
+		{
+			$.ajax({
+        			url: linkCreate(data[j], json_files[i]),
+        			async: false,
+        			dataType: 'json',
+        			success: function(data) {
+                				latency[i].push(data);
+        					}
+    			});
+		}
 	}
+	
+	var hardware = latency[0];
+	
+	
+	var maxCore = d3.max(latency, function(d) { return d3.max ( d, function(t) { return d3.max(t.dat, function(k){ return k.x;}) ; } ); });
+	var width = 280;	
+	var padding = 25;
+	var graphWidth = width+padding;
+	var rigthPad = 10;
+	var colPad = 50;
+	var movelabels;
+	
+	
 
-	//-----
-
-	//Hardware overview 
+	//hardware overview 
+	
 	
 	d3.select(".name").selectAll("td")
 		.data([hardware[0]].concat(hardware))
@@ -166,111 +295,714 @@ td
 		.enter().append("td")
 		.text(function(d){ return d.numa});
 
-	
-	
-	
 
-
- 
-	function linkCreate(d , i)
+	//Topology overview
+	topology_data=[]
+	for(var i=0;i<data.length;i++)
 	{
-		return "../graphs/" + d + "/" + i;
-	}
-	
-
-	function biglinkCreate(d , i)
-	{
-		var re = ".png";
-		var s=i;		
+			$.ajax({
+        			url: linkCreate(data[i], "topology.json"),
+        			async: false,
+        			dataType: 'json',
+        			success: function(data) {
+                				topology_data.push(data);
+        					}
+    			});
 		
-		return "../graphs/" + d + "/" + s.replace(re, "-small.png");
 	}
 	
-	function cross(a)
-	{
-  		return function(d) {
-    				var c = [];
-    			for (var i = 0, n = a.length; i < n; i++) c.push({x: d, y: a[i]});
-    				return c;
-  			};
-	}
+	var min_dist = d3.min(topology_data, function(d)
+						{
+							return d3.min(d.nodes, function(d)
+										{
+											return d3.min(d.distances);
+										});
+						})
+	var max_dist = d3.max(topology_data, function(d)
+						{
+							return d3.max(d.nodes, function(d)
+										{
+											return d3.max(d.distances);
+										});
+						})
+	var numaDistColourScale = d3.scale.linear().domain([min_dist, max_dist]).range([255, 0]);
 
+	var temp=new Array();
+	temp.length=256;
+	d3.select(".numatop").select("td").append("svg").attr("height", 270).attr("transform","translate(0, 10)").append("g").attr("class", "needTopAxis").attr("height", 270).attr("x", 0)
+					
+
+					.selectAll("rect")
+					.data(temp).enter().append("rect")
+					.attr("x", 150)
+					.attr("y", function(d, i){return i;})
+					.attr("height", 1)
+					.attr("width", 10)
+					.style("fill", function(d, i){return RainBowColor(255-i, 255);});
+	var yAxis = d3.svg.axis()
+                  	.scale(numaDistColourScale)
+                  	.orient("left");
+
+	d3.select(".needTopAxis").append("g").attr("class", "axisY").attr("transform", "translate(150, 0)")
+					.call(yAxis);
+
+					
 
 	
-	d3.select(".latency").append("tr")
-		.selectAll("td")
-		.data(hardware).enter().append("td")
+	
+
+	var topol = d3.select(".numatop").selectAll("td")
+			.data([topology_data].concat(topology_data))
+			.enter().append("td").append("table");
+	
+	var top = topol.append("tr");
+	top.append("td");
+	top.selectAll("td").data(function(d){return [d.nodes[0]].concat(d.nodes);})
+			.enter().append("td").style("background-color", "lightgrey").text(function(d, i){ return "Node " + (i-1);});
+
+	var lines = topol.selectAll("tr").data(function(d){return [d.nodes[0]].concat(d.nodes);})
+		.enter().append("tr");
+
+	lines.append("td").style("background-color", "lightgrey").text(function(d, i){ return "Node " +(i-1);});
+	lines.selectAll("td").data(function(d){return [d.distances[0]].concat(d.distances);})
+		.enter().append("td").style("background-color", function(d){return RainBowColor(255-numaDistColourScale(d), 255);}).style("text-align", "center").text(function(d){return d;});	
+	
+
+	//Single node overview (extremelly bad piece of code, never to be reused, but hopefully covers all cases) 
+	var core_width = 70
+	var core_height = 15
+	var core_pad = 10	
+	var col_L = d3.scale.linear().domain([1,2,3]).range(["yellow", "red", "green"])
+	
+
+	var node_top = d3.select(".topology").selectAll("td")
+				.data([[]].concat(topology_data)).enter()
+
+				.append("td").each(
+			
+			function(d)
+			{
+				var XnotEnought = 1
+				var currentY = core_pad
+				var currentX = core_pad
+				var plot = d3.select(this).append("svg").attr("x", 15).attr("y", 15).append("g")
+				plot.append("rect").attr("class", "border").style("fill", "black")
+				plot.append("rect").attr("class", "back_gr").style("fill", "white")
+				var dat = d.caches;
+				var big_cache = d3.max(dat, function(d){ return d.cpu_list.length;})
+			
+				var divider = 1
+				var top_l_number = 0
+				var top_level = '1'
+				for(var i=0; i<d.caches.length; i++)
+				{
+					if( d.caches[i].cpu_list.length == big_cache)
+					{
+						top_level = d3.max([top_level, d.caches[i].level])
+					 	if(top_level == d.caches[i].level) top_l_number++;
+					}
+				}
+				var curr_cpu
+				var tmp = plot.append("g")
+				function drawcache(tmp, width, text_, col)
+				{
+					tmp.append("rect")
+							.attr("x", currentX)
+							.attr("y", currentY)
+							.attr("height", core_height + 4)
+							.attr("width", width)
+							.style("fill", "black")
+					tmp.append("rect")
+							.attr("x", currentX + 2)
+							.attr("y", currentY + 2 )
+							.attr("height", core_height)
+							.attr("width", width -4)
+							.style("fill", col)
+						
+					tmp.append("svg:text").attr("text-anchor", "middle")
+							.attr("x",  currentX + width/2 )
+							.attr("y", currentY + core_height)
+							.attr("width", width)
+	    						.text(text_);
+				}
+				for(var i=0; i<d.caches.length; i++)
+				{					
+						if(d.caches[i].cpu_list.length != big_cache) continue;
+	 					if(d.caches[i].level != top_level) continue;
+						curr_cpu = d.caches[i].cpu_list 
+						plot.attr("height", 500)  
+						
+						drawcache(tmp, 2 * core_pad + big_cache * (core_pad + core_width),"L" + d.caches[i].level + ": " + d.caches[i].size, col_L(d.caches[i].level)) 
+						
+						currentY = currentY + core_height + core_pad
+						danger = currentY
+						d.caches.splice(i, 1)
+						break
+				}
+				var caches_list = []
+			
+				for(var i=0; i<d.caches.length; i++)
+				{
+					var flag = 1
+					for(var j=0; j<d.caches[i].cpu_list.length;j++)
+					{
+						
+						if(curr_cpu.indexOf(d.caches[i].cpu_list[j]) <0)
+						{
+							
+							flag = 0;
+							break;
+						}
+					}
+					if(flag)caches_list.push(d.caches[i]);
+				}
+				for(var i=0; i<caches_list.length; i++)
+				{
+					if(caches_list[i].level != top_level)continue;
+					divider++
+					drawcache(tmp, 2* core_pad + big_cache * (core_pad + core_width), "L" + caches_list[i].level + ": " + caches_list[i].size, col_L(caches_list[i].level))
+
+					currentY = currentY + core_height + core_pad
+					danger = currentY
+				}
+				top_level = String(top_level-1)
+				var caches_indent=[]
+				var c
+				for(var i=0; i<caches_list.length; i++)
+				{
+					if(caches_list[i].level < top_level){caches_indent.push(caches_list[i]); continue;}
+					if(caches_list[i].cpu_list.length < big_cache){caches_indent.push(caches_list[i]); continue;}
+					divider++
+					drawcache(tmp, 2 * core_pad + big_cache * (core_pad + core_width), "L" + caches_list[i].level + ": " + caches_list[i].size,  col_L(caches_list[i].level)) 
+					c = caches_list[i].cpu_list
+					currentY = currentY + core_height + core_pad
+					danger = currentY
+				}
+				
+					
+				var largest_cache = d3.max(caches_indent, function(d){ return d.cpu_list.length;})
+				var diff_cores = []
+				var rem_caches = []
+				function chk_cores(a,b)
+				{
+					if(a[0]==b[0] && a[a.length-1]==b[b.length-1] && a.length == b.length)return true;
+					return false;
+				}
+				for(var i =0 ; i< caches_indent.length; i++)
+				{
+					if(caches_indent[i].cpu_list.length == largest_cache)
+					{
+						var flag = 1
+						for(var j = 0; j<diff_cores.length; j++)
+						{	
+							
+							if(chk_cores(diff_cores[j], caches_indent[i].cpu_list))
+							{
+								flag=0;
+								break;
+							}
+						}
+						if(flag)diff_cores.push(caches_indent[i].cpu_list)
+					}
+					else rem_caches.push(caches_indent[i])
+				}
+				currentX = currentX + core_pad
+				if(big_cache == 1 && diff_cores.length == 0)
+				{
+					
+					currentX+=core_pad/2
+					tmp.append("rect")
+							.attr("x", currentX)
+							.attr("y", currentY)
+							.attr("height", core_width)
+							.attr("width", core_width)
+							.style("fill", "black")
+					tmp.append("rect")
+							.attr("x", currentX + 2)
+							.attr("y", currentY + 2 )
+							.attr("height", core_width - 4)
+							.attr("width", core_width - 4)
+							.style("fill", "grey")
+					
+					tmp.append("svg:text").attr("text-anchor", "middle")
+							.attr("x",  currentX + core_width/2 )
+							.attr("y", currentY + core_width/2)
+							.attr("width", core_width)
+		    					.text("Core#" + c);
+				
+					currentX = currentX  +(core_pad+ core_width)-core_pad/2
+					XnotEnought = 0
+					danger = currentY
+				}
+				for(var i=0; i<diff_cores.length; i++)
+				{
+					
+					oldY = currentY
+					
+					for(var j=0; j<caches_indent.length; j++)
+					{
+						if(caches_indent[j].level == 1) continue;
+						if(chk_cores(caches_indent[j].cpu_list, diff_cores[i]))
+						{
+							drawcache(tmp, diff_cores[i].length * (core_pad + core_width),"L" + caches_indent[j].level + ": " + caches_indent[j].size,  col_L(caches_indent[j].level))
+
+							if(caches_indent[j].cpu_list.length == big_cache)divider++
+							
+							currentY = currentY + core_height + core_pad
+							danger = currentY
+						}
+					}
+					for(var j=0; j<caches_indent.length; j++)
+					{
+						if(caches_indent[j].level == 2) continue;
+						if(chk_cores(caches_indent[j].cpu_list, diff_cores[i]))
+						{
+							drawcache(tmp, diff_cores[i].length * (core_pad + core_width),"L" + caches_indent[j].level + ": " + caches_indent[j].size,  col_L(caches_indent[j].level))
+
+							if(caches_indent[j].cpu_list.length == big_cache)divider++
+							
+							currentY = currentY + core_height + core_pad
+							danger = currentY
+						}
+					}
+					if(big_cache == 1)
+					{
+						currentX+=core_pad*0.5
+						tmp.append("rect")
+								.attr("x", currentX)
+								.attr("y", currentY)
+								.attr("height", core_width)
+								.attr("width", core_width)
+								.style("fill", "black")
+						tmp.append("rect")
+								.attr("x", currentX + 2)
+								.attr("y", currentY + 2 )
+								.attr("height", core_width - 4)
+								.attr("width", core_width - 4)
+								.style("fill", "grey")
+						
+						tmp.append("svg:text").attr("text-anchor", "middle")
+								.attr("x",  currentX + core_width/2 )
+								.attr("y", currentY + core_width/2)
+								.attr("width", core_width)
+		    						.text("Core#" + c);
+					
+						currentX = currentX  -core_pad*0.5
+						XnotEnought = 0
+						danger = currentY
+					}
+					currentX+=core_pad/2
+					var MoreX = 0
+					var MoreY = 0
+					if(big_cache>1)
+					if(diff_cores[i].length == 1)
+					{
+						
+						tmp.append("rect")
+								.attr("x", currentX)
+								.attr("y", currentY)
+								.attr("height", core_width)
+								.attr("width", core_width)
+								.style("fill", "black")
+						tmp.append("rect")
+								.attr("x", currentX + 2)
+								.attr("y", currentY + 2 )
+								.attr("height", core_width - 4)
+								.attr("width", core_width - 4)
+								.style("fill", "grey")
+						
+						tmp.append("svg:text").attr("text-anchor", "middle")
+								.attr("x",  currentX + core_width/2 )
+								.attr("y", currentY + core_width/2)
+								.attr("width", core_width)
+		    						.text("Core#" + diff_cores[i]);
+					}
+					else
+					{
+						
+						currentX-=core_pad/2
+						var oldX = currentX
+						var last_cores = diff_cores[i]
+						var old_Y = currentY
+						
+						for(var k=0; k<last_cores.length; k++)
+						{
+							MoreY = 0
+							for(var j=0; j<caches_indent.length; j++)
+							{
+								if(chk_cores([last_cores[k]], caches_indent[j].cpu_list))
+								{
+									drawcache(tmp,  (core_pad + core_width),"L" + caches_indent[j].level + ": " + caches_indent[j].size,  col_L(caches_indent[j].level))
+									MoreY++
+									if(caches_indent[j].cpu_list.length == big_cache)divider++
+							
+									currentY = currentY + core_height + core_pad
+									danger = currentY
+								}
+							}
+						
+							MoreX++
+							currentX+=core_pad/2
+							tmp.append("rect")
+								.attr("x", currentX)
+								.attr("y", currentY)
+								.attr("height", core_width)
+								.attr("width", core_width)
+								.style("fill", "black")
+							tmp.append("rect")
+								.attr("x", currentX + 2)
+								.attr("y", currentY + 2 )
+								.attr("height", core_width - 4)
+								.attr("width", core_width - 4)
+								.style("fill", "grey")
+						
+							tmp.append("svg:text").attr("text-anchor", "middle")
+								.attr("x",  currentX + core_width/2 )
+								.attr("y", currentY + core_width/2)
+								.attr("width", core_width)
+		    						.text("Core#" + last_cores[k]);
+						
+							
+							currentY = old_Y
+							currentX = currentX +  (core_width + core_pad) -core_pad/2
+						}
+						
+						currentX=oldX
+						
+					}
+					currentX = currentX + diff_cores[0].length* (core_width + core_pad) -core_pad/2
+					XnotEnought = 0
+					danger = currentY + MoreY*(core_height+core_pad)
+					currentY = oldY
+					
+				}
+				if(big_cache>1)
+				{
+					if(XnotEnought)currentX = currentX + (core_width + core_pad) -core_pad/2
+					currentX+=MoreX*core_pad
+				}
+			
+				d3.select(this).select("svg").attr("width", currentX +( 2*core_pad) +50 ).attr("height", danger + core_width +core_height + core_pad)
+					d3.select(this).select(".border").attr("width", currentX +( 2*core_pad) ).attr("height", danger +core_height +core_width + core_pad)
+					d3.select(this).select(".back_gr").attr("x", 2).attr("y", 2).attr("width", currentX +( 2*core_pad) -4 ).attr("height", danger + core_width + core_height + core_pad -4)			
+				d3.select(this).append("p").style("font-size", "2em")
+	    						.text("X "+ top_l_number/divider +" in each NUMA node");  
+						
+				
+			})
+ 	
+
+	//Latency overview
+	var temp = d3.select(".latency").append("tr");
+	temp.append("td").text("Tests");
+	temp.selectAll("td")
+		.data([hardware[0]].concat(hardware)).enter().append("td")
 		.text(function(d){return d.name;});
 
 
 	var colums=d3.select(".latency").selectAll("tr")
-		.data([""].concat(images))
-		.enter().append("tr");
-	
-	var rows=colums.selectAll("td")
-		.data(cross(data, images))
-		.enter().append("td")
-		.append("a")
-		.attr("href", function(d , i){ return linkCreate(d.y , d.x);})
-		.append("svg")
-		.attr("width", "300px")
-    		.attr("height", "200px")
-		.append("image")
-    		.attr("xlink:href", function(d ,i){ return linkCreate(d.y ,d.x);})
-	    	.attr("width", "300px")
-    		.attr("height", "200px");
+		.data([latency[0]].concat(latency))
+		.enter().append("tr")
+		.each(
+			function(data)
+			{
+				
 
-	
+				var maxLat = d3.max(data, function(t) { return d3.max(t.dat, function(k){ return k.v;}) ; } );
+				var minLat = d3.min(data, function(t) { return d3.min(t.dat, function(k){ return k.v;}) ; } );
+				var cellwidth = width / (maxCore+1) ;
+				movelabels = cellwidth/2;				
+				
+				var colourScale = d3.scale.linear().domain([minLat, maxLat]).range([0, 255]);
+				var xScale = d3.scale.linear().domain([0, maxCore + 1]).range([padding, graphWidth]);
+				var yScale = d3.scale.linear().domain([0, maxCore + 1]).range([width - cellwidth, 0 - cellwidth ]);
+				var colourTicks = d3.scale.linear().domain([minLat, maxLat]).range([300, 44]);
 
-	/*
-	var img=[];
-	
-	var i;
-	for(i=0;i<data.length;i++)
-	{
-		var xhr = new XMLHttpRequest();
+				var colAxis  = d3.svg.axis()
+						.scale(colourTicks)
+						.orient("left")
+						.tickFormat(d3.format("e"));	
 
-		xhr.open('GET', '../graphs/'+data[i]+'/g_cores.txt', false);
-		xhr.send(null);
+				var xAxis = d3.svg.axis()
+                  			.scale(xScale)
+                  			.orient("bottom")
+					.tickFormat(d3.format("d"));
+					
 
-		var temp = xhr.responseText.split('\n');
+				var yAxis = d3.svg.axis()
+                  			.scale(yScale)
+                  			.orient("left")
+					.tickFormat(d3.format("d"));
 
-		img.push(temp);
-	}
-	
+				
+				
+				var temp=new Array();
+				temp.length=256;
+				colourStep= (maxLat-minLat)/256;
+				
 
-	function merge (data)
-	{
-		if(data.length = 1)return;
-		data[1]=data[0].concat(data[1]);
-		data.shift();
-		merge(data);
-	}
-	
-	
-	var colums=d3.select(".throughput").selectAll("tr")
-		.data(img[0])
-		.enter().append("tr");
-	
-	var rows=colums.selectAll("td")
-		.data(cross(data, img[0]))
-		.enter().append("td")
-		.append("a")
-		.attr("href", function(d , i){ return linkCreate(d.y , d.x);})
-		.append("svg")
-		.attr("width", "300px")
-    		.attr("height", "200px")
-		.append("image")
-    		.attr("xlink:href", function(d ,i){ return biglinkCreate(d.y ,d.x);})
-	    	.attr("width", "300px")
-    		.attr("height", "200px");
+				d3.select(this).selectAll("td").
+					data([0]).enter().append("td")
+					.append("svg").attr("class", "scaleCont")
+					.attr("width", colPad + 40).attr("height", width + padding).attr("x", 0).attr("y", 50)
 
+					.append("svg").attr("class", "needColAxis")
+					.attr("width", colPad + 20).attr("height", width + padding).attr("x", 20)
+
+					.selectAll("rect")
+					.data(temp).enter().append("rect")
+					.attr("x", colPad)
+					.attr("y", function(d, i){return 256-i;})
+					.attr("height", 1)
+					.attr("width", 10)
+					.style("fill", function(d, i){return RainBowColor(i, 255);});
+
+				d3.select(this).selectAll("td")
+					.data([data[0]].concat(data))
+					.enter().append("td").attr("class", "cores")
+
+					.append("svg").attr("class" , "cont")
+					.attr("width", graphWidth + rigthPad + 15).attr("height", graphWidth + rigthPad + 15);
+				
+
+				d3.select(this).selectAll(".scaleCont").append("svg:text").text("Latency in microseconds").style("position", "relative").attr("x", "30").attr("y", (width/2 -padding)).attr("text-anchor", "middle").attr("transform", "rotate(270 30, "+ (width/2-padding) +")");
+
+				d3.select(this).selectAll(".cont").append("svg:text").text("Core #").style("position", "relative").attr("x", "0").attr("y", (width/2)).attr("text-anchor", "middle").attr("transform", "rotate(270 10, "+ (width/2)  +")");
+
+				d3.select(this).selectAll(".cont").append("svg:text").text("Core #").style("position", "relative").attr("x", width/2+ padding).attr("y", graphWidth + rigthPad + 15).attr("text-anchor", "middle");
+
+						
+				d3.select(this).selectAll(".cont").append("svg").attr("class", "needAxis").attr("width", graphWidth + rigthPad).attr("height", graphWidth + rigthPad).attr("x", 15).attr("y", 15)
+		
+					.selectAll("rect")
+					.data(function(d){return d.dat;})
+					.enter().append("rect")
+					.attr("x", function(d){return xScale(d.x);})
+					.attr("y", function(d){return yScale(d.y);})
+					.attr("height", cellwidth)
+					.attr("width", cellwidth)
+					.style("fill", function(d){return RainBowColor(colourScale(d.v), colourScale(maxLat));});	
 	
-	*/		
+					d3.select(this).selectAll("td").select(".needAxis").append("g").attr("class", "axisX"). attr("transform", "translate(0," + (graphWidth-padding) + ")")
+					.call(xAxis);
+					
+					
+
+					
 	
+					d3.select(this).selectAll("td").select(".needAxis").append("g").attr("class", "axisY").attr("transform", "translate(" + padding + ","+ cellwidth +")")
+					.call(yAxis);
+
+					
+				
+					d3.select(this).selectAll("td").select(".needColAxis").append("g").attr("class", "axis")
+					.attr("transform", "translate(" + colPad + ","+ (-44) +")")
+					.call(colAxis);
+					
+			});
+
+	d3.selectAll(".scaleCont")
+	.data(test_names)
+
+	.append("svg:text").text(function(d){return d;})
+	.style("position", "relative")
+	.attr("x", "5").attr("y", (width/2 -padding))
+	.attr("text-anchor", "middle")
+	.attr("transform", "rotate(270 10, "+ (width/2-padding) +")")
+	.attr("font-size", "13px");
 
  
-     // Double-scroll script
+   
+
+
+
+	$("svg.cont>svg>g.axisX>g>text").attr("x", movelabels );
+	$("svg.cont>svg>g.axisY>g>text").attr("y", -movelabels );
+
+
+
+	//Thoughput graphs
+	var thput=[];
+	var test_names = [ "Same core", "Same HT partner" , "Same Socket", "Different Socket", "Same NUMA node", "Different NUMA node" ]
+	var th_colours = ["darkred", "red", "darkgreen" , "green" , "darkblue",  "blue" , "violet", "yellow", "black", "grey" , "brown"]
+
+	//Legend
+	var legend = d3.select("#legend").attr("width", "100%").attr("height", 280).append("g");
+	
+	legend.append("rect").attr("x", 20).attr("y", 20).attr("height", 20).attr("width", 30).style("fill",th_colours[0]);
+	legend.append("text").attr("x", 65).attr("y", 35).text("MemPipe Spin Unsafe");
+	
+	legend.append("rect").attr("x", 20).attr("y", 60).attr("height", 20).attr("width", 30).style("fill",th_colours[1]);
+	legend.append("text").attr("x", 65).attr("y", 75).text("MemPipe Spin Safe");
+
+	legend.append("rect").attr("x", 20).attr("y", 100).attr("height", 20).attr("width", 30).style("fill",th_colours[2]);
+	legend.append("text").attr("x", 65).attr("y", 115).text("MemPipe Futex Unsafe");
+
+	legend.append("rect").attr("x", 20).attr("y", 140).attr("height", 20).attr("width", 30).style("fill",th_colours[3]);
+	legend.append("text").attr("x", 65).attr("y", 155).text("MemPipe Futex Unsafe");
+
+	legend.append("rect").attr("x", 20).attr("y", 180).attr("height", 20).attr("width", 30).style("fill",th_colours[4]);
+	legend.append("text").attr("x", 65).attr("y", 195).text("ShMemPipe Unsafe");
+	
+	legend.append("rect").attr("x", 20).attr("y", 220).attr("height", 20).attr("width", 30).style("fill",th_colours[5]);
+	legend.append("text").attr("x", 65).attr("y", 235).text("ShMemPipe safe");
+
+	legend.append("rect").attr("x", 320).attr("y", 20).attr("height", 20).attr("width", 30).style("fill",th_colours[6]);
+	legend.append("text").attr("x", 365).attr("y", 35).text("VM Splice Coop");
+	
+	legend.append("rect").attr("x", 320).attr("y", 60).attr("height", 20).attr("width", 30).style("fill",th_colours[7]);
+	legend.append("text").attr("x", 365).attr("y", 75).text("Pipe");
+
+	legend.append("rect").attr("x", 320).attr("y", 100).attr("height", 20).attr("width", 30).style("fill",th_colours[8]);
+	legend.append("text").attr("x", 365).attr("y", 115).text("Unix Sock");
+
+	legend.append("rect").attr("x", 320).attr("y", 140).attr("height", 20).attr("width", 30).style("fill",th_colours[9]);
+	legend.append("text").attr("x", 365).attr("y", 155).text("TCP no delay");
+
+	legend.append("rect").attr("x", 320).attr("y", 180).attr("height", 20).attr("width", 30).style("fill",th_colours[10]);
+	legend.append("text").attr("x", 365).attr("y", 195).text("TCP");
+	
+
+	
+
+	for(var i=0;i<data.length;i++)
+	{
+			$.ajax({
+        			url: linkCreate(data[i], "th_put.json"),
+        			async: false,
+        			dataType: 'json',
+        			success: function(data) {
+                				thput.push(data);
+        					}
+    			});
+		
+	}
+
+	var temp = d3.select(".throughput").append("tr");
+
+	temp.append("td").text("Tests");
+
+	temp.selectAll("td")
+		.data([hardware[0]].concat(hardware)).enter().append("td")
+		.text(function(d){return d.name;});
+	
+	
+	var width = 300
+	var startPad = 10
+	var height = 200
+	var padding = 40
+	var blockWidth = 6
+	var space = (width - 33 * blockWidth - startPad * 2 ) / 2
+	var start = [startPad, startPad + 11 * blockWidth + space, startPad + 22 * blockWidth + 2 * space]
+	
+	var colums=d3.select(".throughput").selectAll("tr")
+		.data([test_names[0]].concat(test_names))
+		.enter().append("tr")
+		.each(
+			function(d, j)
+			{
+				var labels = d3.select(this).append("td").append("svg").attr("height", height);
+				
+				labels.append("svg:text").text(d).style("position", "relative").attr("x", 10).attr("y", height/2 - padding +10).attr("text-anchor", "middle").attr("transform", "rotate(270 10, "+ (height/2 -padding + 10) +")")
+	.attr("font-size", "13px");
+
+				
+
+
+
+				th_data=[] 
+				for(var i=0;i<data.length;i++) //loading the data for a single test (core numbers), for all CPUs
+				{
+					$.ajax({
+        					url: linkCreate(data[i], get_th_filename(thput[i], j-1)),
+        					async: false,
+        					dataType: 'json',
+        					success: function(data) {
+                						th_data.push(data);
+								},
+						error: function(){ 
+								th_data.push({pipe: [-1.]}); 
+								}
+    					});		
+				}
+				
+				var max_th = d3.max(th_data, function(d)
+							     { 
+									return d3.max([
+										d3.max(get_th_data(d, 0)),
+										d3.max(get_th_data(d, 1)),
+										d3.max(get_th_data(d, 2)),
+										d3.max(get_th_data(d, 3)),
+										d3.max(get_th_data(d, 4)),
+										d3.max(get_th_data(d, 5)),
+										d3.max(get_th_data(d, 6)),
+										d3.max(get_th_data(d, 7)),
+										d3.max(get_th_data(d, 8)),
+										d3.max(get_th_data(d, 9)),
+										d3.max(get_th_data(d, 10)),
+										]);
+									
+							     });
+
+				
+				var yScale = d3.scale.linear().domain([0, max_th]).range([height, 0 ]);
+				var yAxis = d3.svg.axis()
+                  				.scale(yScale)
+                  				.orient("left");
+			
+				
+									 
+				for(var i=0; i<th_data.length; i++)
+				{
+					
+					
+					var tm=	d3.select(this).append("td")
+		
+							.append("svg").attr("class" , "contT")
+							.attr("width", width + padding).attr("height", height + padding);
+					var temp = tm.append("g").attr("class", "Thput")
+							.attr("width",width ).attr("height", height ).attr("x", padding)
+							.attr("transform", "translate(" + padding+ ",0)");
+					if(th_data[i].pipe[0] == -1)
+					{
+						tm.append("svg:text").text("No Data Applicable").style("position", "relative").attr("x", width/2 + padding/2).attr("y", height/2 + padding/2).attr("text-anchor", "middle");
+						continue;
+					}
+						
+					
+
+					temp.append("g").attr("class", "axis")
+					.call(yAxis);
+
+					tm.append("svg:text").text("Throughput in Gbps").style("position", "relative").attr("x", 10).attr("y", height/2).attr("text-anchor", "middle").attr("transform", "rotate(270 10 "+ (height/2 ) +")");
+					temp.append("svg:text").text("Chunk size").style("position", "relative").attr("x", width/2).attr("y", height + padding-5).attr("text-anchor", "middle");
+
+					var xAxes = temp.append("g").attr("class", "axis");
+
+					xAxes.append("line").attr("x1", 0).attr("x2", width).attr("y1", height).attr("y2", height);
+							
+					xAxes.append("text").attr("x", start[0] + 4*blockWidth). attr("y", height + 10).text("64");
+					xAxes.append("text").attr("x", start[1] + 4*blockWidth). attr("y", height + 10).text("4096");
+					xAxes.append("text").attr("x", start[2] + 4*blockWidth). attr("y", height + 10).text("65536");
+
+					for(var k=0; k<start.length; k++)
+					{
+						for(var j=0; j<11; j++)
+						{
+
+							temp.append("rect")
+							.attr("x", start[k] + j * blockWidth)
+							.attr("y", yScale(get_th_data(th_data[i], j)[k]))
+							.attr("height", height -yScale(get_th_data(th_data[i], j)[k]) )
+							.attr("width", blockWidth)
+							.style("fill", th_colours[j]);
+						}
+					}
+				}
+			});
+
+	
+  // Double-scroll script
     function DoubleScroll(element) {
         var scrollbar= document.createElement('div');
         scrollbar.appendChild(document.createElement('div'));
@@ -288,9 +1020,16 @@ td
         element.parentNode.insertBefore(scrollbar, element);
     }
 
-    DoubleScroll(document.getElementById('doublescroll'));
-    DoubleScroll(document.getElementById('doublescroll2'));
     DoubleScroll(document.getElementById('doublescroll3'));
+    DoubleScroll(document.getElementById('doublescroll2'));
+    DoubleScroll(document.getElementById('doublescroll'));
+
+	
+	
+	
+	
+}
+	document.defaultView.onload=do_totals1();
 </script>
 
 <a href="../results.html">&laquo; Back to overview</a></b></p><hr />
