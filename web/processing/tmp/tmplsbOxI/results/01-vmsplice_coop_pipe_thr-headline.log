@@ -1,9 +1,0 @@
-vmsplice_coop_pipe_thr 0 0 -1 64 2 1 1 1 1000000 562 Mbps
-vmsplice_coop_pipe_thr 0 4 -1 64 2 1 1 1 1000000 1062 Mbps
-vmsplice_coop_pipe_thr 0 1 -1 64 2 1 1 1 1000000 996 Mbps
-vmsplice_coop_pipe_thr 0 0 -1 4096 2 1 1 1 1000000 10278 Mbps
-vmsplice_coop_pipe_thr 0 4 -1 4096 2 1 1 1 1000000 19630 Mbps
-vmsplice_coop_pipe_thr 0 1 -1 4096 2 1 1 1 1000000 21870 Mbps
-vmsplice_coop_pipe_thr 0 0 -1 65536 2 1 1 1 100000 28231 Mbps
-vmsplice_coop_pipe_thr 0 4 -1 65536 2 1 1 1 100000 29549 Mbps
-vmsplice_coop_pipe_thr 0 1 -1 65536 2 1 1 1 100000 42051 Mbps

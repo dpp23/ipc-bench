@@ -1,6 +1,0 @@
-mempipe_spin_thr 0 1 0 64 2 1 1 1 1000000 3825 Mbps
-mempipe_spin_thr 0 1 0 4096 2 1 1 1 1000000 12195 Mbps
-mempipe_spin_thr 0 1 0 65536 2 1 1 1 100000 12945 Mbps
-mempipe_spin_thr 0 1 0 64 2 1 0 1 1000000 4314 Mbps
-mempipe_spin_thr 0 1 0 4096 2 1 0 1 1000000 7622 Mbps
-mempipe_spin_thr 0 1 0 65536 2 1 0 1 100000 7885 Mbps

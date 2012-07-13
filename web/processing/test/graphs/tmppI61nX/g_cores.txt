@@ -1,4 +1,0 @@
-core_0_to_0.png
-core_0_to_1.png
-core_0_to_12.png
-core_0_to_2.png

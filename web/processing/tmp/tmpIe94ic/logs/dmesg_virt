@@ -1,6 +1,0 @@
-[    0.000000] DMI: innotek GmbH VirtualBox, BIOS VirtualBox 12/01/2006
-[    0.000000] CPU MTRRs all blank - virtualized system.
-[    0.000000] Booting paravirtualized kernel on bare hardware
-[    3.239842] input: VirtualBox USB Tablet as /devices/pci0000:00/0000:00:06.0/usb2/2-1/2-1:1.0/input/input3
-[    3.240031] generic-usb 0003:80EE:0021.0001: input,hidraw0: USB HID v1.10 Mouse [VirtualBox USB Tablet] on usb-0000:00:06.0-1/input0
-[    4.867434] input: Unspecified device as /devices/virtual/input/input5

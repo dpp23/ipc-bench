@@ -1,6 +1,0 @@
-[    0.000000] Booting paravirtualized kernel on bare hardware
-[    8.462079] usb 7-1: Product: Virtual Keyboard and Mouse
-[    8.508312] input: American Megatrends Inc. Virtual Keyboard and Mouse as /devices/pci0000:00/0000:00:14.5/usb7/7-1/7-1:1.0/input/input1
-[    8.508385] generic-usb 0003:046B:FF10.0001: input,hidraw0: USB HID v1.10 Keyboard [American Megatrends Inc. Virtual Keyboard and Mouse] on usb-0000:00:14.5-1/input0
-[    8.526235] input: American Megatrends Inc. Virtual Keyboard and Mouse as /devices/pci0000:00/0000:00:14.5/usb7/7-1/7-1:1.1/input/input2
-[    8.526354] generic-usb 0003:046B:FF10.0002: input,hidraw1: USB HID v1.10 Mouse [American Megatrends Inc. Virtual Keyboard and Mouse] on usb-0000:00:14.5-1/input1
